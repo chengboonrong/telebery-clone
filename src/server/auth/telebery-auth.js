@@ -23,13 +23,12 @@ module.exports = (core, config) => ({
     
     const _password = shell.exec('sudo cat /etc/shadow | grep demo | cut -d: -f 2', {silent: true}).stdout.replace(/\s/g, '');
     const group = shell.exec("sudo cat /etc/group | grep admin | awk 'NR==2' | cut -d: -f1", {silent: true}).stdout.split('\n')[0];
-
     if(users.includes(username)){
       // get user's group
       let groups = shell.exec(`groups ${username}`, {silent: true}).stdout.split(" ");
       groups = groups.slice(3)
       const group = groups[0].split("\n").join('');
-
+      console.log('yes');
       if(bc.compareSync(password, _password)){
         console.log('Passed');
         return Promise.resolve({

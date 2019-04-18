@@ -1,6 +1,6 @@
  
 // Methods OS.js server requires
-const bc = require('bcrypt');
+const bc = require('bcrypt'); 
 const shell = require('shelljs');
 
 function createUser(username, password, group){
@@ -8,7 +8,7 @@ function createUser(username, password, group){
   // change based on the folder location
   const home = shell.exec('pwd | cut -d/ -f-6', {silent: true}).stdout.split('\n')[0];
   shell.exec(`sudo useradd -m -d ${home}/vfs/${username} -s /bin/bash -p ${hash} ${username}`);
-  shell.exec(`sudo usermod -aG ${group} ${username}`);
+  shell.exec(`sudo usermod -G ${group} ${username}`);
   console.log("User created: " + username)
 }
 
